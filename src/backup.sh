@@ -7,7 +7,7 @@
 mkdir -p /mnt/backup-bucket
 
 # removed -o nonempty
-gcsfuse wikibase-dev-sql-backup /mnt/backup-bucket
+gcsfuse -o uid=1000,gid=1000 wikibase-dev-sql-backup /mnt/backup-bucket 
 
 TIMESTAMP=$(date '+%Y-%m-%d_%H%M%S')
 BACKUP_DIR=/tmp/backup-"$TIMESTAMP"/
