@@ -5,7 +5,9 @@
 #DB_HOST=127.0.0.1
 #DB_PORT=3306
 mkdir -p /mnt/backup-bucket
-gcsfuse -o nonempty wikibase-dev-sql-backup /mnt/backup-bucket
+
+# removed -o nonempty
+gcsfuse wikibase-dev-sql-backup /mnt/backup-bucket
 
 TIMESTAMP=$(date '+%Y-%m-%d_%H%M%S')
 BACKUP_DIR=/tmp/backup-"$TIMESTAMP"/
