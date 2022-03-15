@@ -10,11 +10,13 @@ BACKUP_ARCHIVE=/tmp/"mydumper-backup-$TIMESTAMP".tar.gz
 
 rm -rf "$BACKUP_DIR"
 
-mydumper --user="$DB_USER" \
-         --port="$DB_PORT" \
-         --host="$DB_HOST" \
-         --password="$DB_PASSWORD" \
-         --outputdir="$BACKUP_DIR"
+# mydumper --user="$DB_USER" \
+#          --port="$DB_PORT" \
+#          --host="$DB_HOST" \
+#          --password="$DB_PASSWORD" \
+#          --outputdir="$BACKUP_DIR"
+
+touch "$BACKUP_DIR"test
 
 tar -cjf "$BACKUP_ARCHIVE" -C "$BACKUP_DIR" .
 
