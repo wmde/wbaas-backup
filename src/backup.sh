@@ -18,6 +18,4 @@ mydumper --user="$DB_USER" \
 
 tar -cjf "$BACKUP_ARCHIVE" -C "$BACKUP_DIR" .
 
-#file "$BACKUP_ARCHIVE"
-
-ls /tmp/
+cp "$BACKUP_ARCHIVE" /mnt/backup-bucket/
