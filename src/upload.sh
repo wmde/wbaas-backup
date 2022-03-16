@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 ## mount bucket
 gcsfuse --key-file=/var/run/secret/cloud.google.com/key.json "$GCS_BUCKET_NAME" /mnt/backup-bucket
