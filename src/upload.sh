@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## mount bucket
-gcsfuse --key-file=/var/run/secret/cloud.google.com/key.json wikibase-dev-sql-backup /mnt/backup-bucket 
+gcsfuse --key-file=/var/run/secret/cloud.google.com/key.json "$GCS_BUCKET_NAME" /mnt/backup-bucket
 
 ## move backup artifacts into mounted bucket
 mv /backups/* /mnt/backup-bucket/

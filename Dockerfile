@@ -24,6 +24,7 @@ ENV DB_PORT=3306 \
     DB_HOST="localhost" \
     DB_PASSWORD="" \
     DB_USER="" \
-    DO_UPLOAD="1"
+    DO_UPLOAD="1" \
+    GCS_BUCKET_NAME=""
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]
