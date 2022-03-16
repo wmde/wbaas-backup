@@ -7,7 +7,9 @@
 mkdir -p /mnt/backup-bucket
 
 # removed -o nonempty
-gcsfuse -o uid=1000,gid=1000 wikibase-dev-sql-backup /mnt/backup-bucket 
+whoami
+gcsfuse wikibase-dev-sql-backup /mnt/backup-bucket 
+ls -oa /mnt/
 
 TIMESTAMP=$(date '+%Y-%m-%d_%H%M%S')
 BACKUP_DIR=/tmp/backup-"$TIMESTAMP"/
@@ -24,3 +26,5 @@ mkdir -p "$BACKUP_DIR"test
 tar -cjf "$BACKUP_ARCHIVE" -C "$BACKUP_DIR" .
 
 cp "$BACKUP_ARCHIVE" /mnt/backup-bucket/
+
+sleep 10m
