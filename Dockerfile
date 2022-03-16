@@ -24,6 +24,6 @@ ENV DB_PORT=3306 \
     DB_HOST="localhost" \
     DB_PASSWORD="" \
     DB_USER="" \
-    BACKUP_DIR="/backup/"
+    DO_UPLOAD="1"
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]
