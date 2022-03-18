@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 ROOT=$PWD
 TIMESTAMP=$(date '+%Y-%m-%d_%H%M%S')
