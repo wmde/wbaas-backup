@@ -1,6 +1,7 @@
 #!/bin/bash
-set -e
+set -ex
 
+ROOT=$PWD
 TIMESTAMP=$(date '+%Y-%m-%d_%H%M%S')
 BACKUP_DIR=/tmp/backup-"$TIMESTAMP"
 BACKUP_ARCHIVE=/backups/"mydumper-backup-$TIMESTAMP".tar.gz
@@ -14,4 +15,6 @@ mydumper --user="$DB_USER" \
 
 cat "$BACKUP_DIR"/metadata
 
-tar -cjf "$BACKUP_ARCHIVE" -C "$BACKUP_DIR" .
+cd "$BACKUP_DIR"
+bash "$ROOT"/compress_folder.sh "$BACKUP_ARCHIVE"
+cd -

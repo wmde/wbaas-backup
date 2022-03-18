@@ -27,3 +27,19 @@ After that you can restore the backup by specify the following env vars and run 
 ```sh
 DB_USER=root DB_PORT=3306 DB_HOST=127.0.0.1 DB_PASSWORD=<YOUR_PASSWORD> bash src/restore.sh <THE_FOLDER_WITH_EXTRACTED_TAR>
 ```
+
+## Disaster scenarios
+
+## All databases gone on primary
+
+Forward the primary SQL port to host
+
+```sh
+kubectl port-forward sql-mariadb-primary-0 3306:3306
+```
+
+One-liner to drop all existing databases
+
+```sh
+mysql -uroot -p<LOCAL_SQL_PASSWORD> --port=3306 --host=127.0.0.1 -e "show databases" | grep -v Database | grep -v mysql| grep -v information_schema| gawk '{print "drop database `" $1 "`;select sleep(0.1);"}' | mysql -uroot -p<LOCAL_SQL_PASSWORD> --port=3306 --host=127.0.0.1 
+```
