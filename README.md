@@ -27,6 +27,13 @@ After that you can restore the backup by specify the following env vars and run 
 ```sh
 DB_USER=root DB_PORT=3306 DB_HOST=127.0.0.1 DB_PASSWORD=<YOUR_PASSWORD> bash src/restore.sh <THE_FOLDER_WITH_EXTRACTED_TAR>
 ```
+## Decompressing archives
+
+To decompress a downloaded encrypted archive use the following bash script
+
+```
+BACKUP_KEY=<FILL_OUT> ./decompress_archive.sh /home/user/Downloads/mydumper-backup-2022-03-18_150902.tar.gz /tmp/staging
+```
 
 ## Disaster scenarios
 
