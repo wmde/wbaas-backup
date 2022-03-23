@@ -34,9 +34,14 @@ jobs:
       -
         name: Run backup and show some files
         run: |
+          #create writable dir for non-root
+          mkdir -p ci/backup-outputs
+          chmod 777 ci/backup-outputs
+
           # run a backup
           cd ci
           docker-compose up wbaas_backup
+
           # decompress and list some files
           FILE=$(ls backup-outputs/mydumper-backup-*)
           cd ..
