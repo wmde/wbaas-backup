@@ -1,0 +1,14 @@
+name: Lint docker
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+
+jobs:
+  lint_shell_scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: bewuethr/shellcheck-action@v2
