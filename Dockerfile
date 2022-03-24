@@ -4,7 +4,9 @@ FROM ubuntu:bionic
 ENV GCSFUSE_REPO gcsfuse-stretch
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN mkdir /backups && mkdir -p /mnt/backup-bucket && \
+RUN useradd -u 1234 notroot && \
+    mkdir /backups && mkdir -p /mnt/backup-bucket && \
+    chown notroot /backups /mnt/backup-bucket && \
     apt-get update && apt-get install --yes --no-install-recommends \
     ca-certificates=20210119~18.04.2 \
     curl=7.58.0-2ubuntu3.16 \
@@ -17,8 +19,9 @@ RUN mkdir /backups && mkdir -p /mnt/backup-bucket && \
   && apt-get install --yes gcsfuse=0.40.0 --no-install-recommends \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
+USER notroot
 WORKDIR /app
-COPY src/ /app 
+COPY src/ /app
 
 ENV DB_PORT=3306 \
     DB_HOST="localhost" \
