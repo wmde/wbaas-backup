@@ -1,0 +1,51 @@
+name: test
+
+on:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - '*'
+  pull_request:
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2.4.0
+      -
+        name: Start test container
+        run: |
+          cd ci
+          docker-compose up -d wikibase mysql
+          cd -
+
+      - name: Wait for server to accept connections
+        uses: nick-invision/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 100
+          retry_wait_seconds: 5
+          warning_on_retry: false
+          command: cd ci && docker-compose logs wikibase | grep "apache2 -D FOREGROUND" | wc -l | grep 1
+
+      -
+        name: Run backup and show some files
+        run: |
+          # run a backup
+          cd ci
+          docker-compose up wbaas_backup
+          # decompress and list some files
+          FILE=$(ls backup-outputs/mydumper-backup-*)
+          cd ..
+          BACKUP_KEY=abc123 ./src/decompress_archive.sh ci/$FILE /tmp/output
+          ls /tmp/output/
+          
+          # metadata should be there
+          cat /tmp/output/metadata
+          
+          # some files we expect
+          file /tmp/output/my_wiki.page.sql
+          file /tmp/output/my_wiki.page-schema.sql
