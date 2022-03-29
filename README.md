@@ -37,7 +37,54 @@ BACKUP_KEY=<FILL_OUT> ./decompress_archive.sh /home/user/Downloads/mydumper-back
 
 ## Disaster scenarios
 
-## All databases gone on primary
+## Re-install the SQL deployment and PVC:s
+
+### Uninstall databases
+
+Update the helmfile and mark the SQL chart as not installed
+
+```yml
+  - name: sql
+    namespace: default
+    installed: false
+```
+
+apply to the environment.
+
+### Drop the PVC/PV:s
+
+Delete claims.
+
+```sh
+kubectl delete -n default persistentvolumeclaim data-sql-mariadb-primary-0
+kubectl delete -n default persistentvolumeclaim data-sql-mariadb-secondary-0
+```
+
+Usually, the above command removes the volumes as they become unbound, if that isn't the case delete them manually either through the UI or.
+
+```sh
+kubectl delete persistentvolume <VOLUME_ID_FOR_PRIMARY>
+kubectl delete persistentvolume <VOLUME_ID_FOR_SECONDARY>
+```
+
+Update the helmfile and mark the SQL chart as installed and apply to the environment.
+Simply removing `installed` will also default it to true.
+
+```yml
+  - name: sql
+    namespace: default
+    installed: true
+```
+
+After the installation has settled, get a mysql shell and drop the remaining databases on both primary/secondaries.
+
+```sql
+DROP DATABASE apidb; DROP DATABASE mediawiki; DROP DATABASE mysql; DROP DATABASE test; DROP DATABASE performance_schema; DROP DATABASE my_database;
+```
+
+The SQL deployment should now be completely empty and ready for a restore.
+
+## Drop all databases on primary
 
 Forward the primary SQL port to host
 
