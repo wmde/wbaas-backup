@@ -29,6 +29,7 @@ ENV DB_PORT=3306 \
     DB_USER="" \
     DO_UPLOAD="1" \
     GCS_BUCKET_NAME="" \
-    BACKUP_KEY=""
+    BACKUP_KEY="" \
+    MYDUMPER_VERBOSE_LEVEL="1"
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]

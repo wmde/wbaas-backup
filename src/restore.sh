@@ -8,4 +8,4 @@ myloader --user="$DB_USER" \
          --host="$DB_HOST" \
          --password="$DB_PASSWORD" \
          --directory="$BACKUP_RESTORE_DIR" \
-         --verbose=3
+         --verbose="$MYDUMPER_VERBOSE_LEVEL"

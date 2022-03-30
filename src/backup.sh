@@ -12,7 +12,7 @@ mydumper --user="$DB_USER" \
          --password="$DB_PASSWORD" \
          --outputdir="$BACKUP_DIR" \
          --trx-consistency-only \
-         --verbose=3
+         --verbose="$MYDUMPER_VERBOSE_LEVEL"
 
 cat "$BACKUP_DIR"/metadata
 
