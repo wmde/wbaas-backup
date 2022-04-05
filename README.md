@@ -17,7 +17,7 @@ kubectl port-forward sql-mariadb-secondary-0 3306:3306
 After that you can specify the following env vars and run `backup.sh`.
 
 ```sh
-DB_USER=root DB_PORT=3306 DB_HOST=127.0.0.1 DB_PASSWORD=<YOUR_PASSWORD> bash src/backup.sh 
+DB_USER=<YOUR_USER> DB_PORT=3306 DB_HOST=127.0.0.1 DB_PASSWORD=<YOUR_PASSWORD> bash src/backup.sh 
 ```
 
 The script should output a tar in the `/backups/` folder.
@@ -25,7 +25,7 @@ The script should output a tar in the `/backups/` folder.
 After that you can restore the backup by specify the following env vars and run `backup.sh`.
 
 ```sh
-DB_USER=root DB_PORT=3306 DB_HOST=127.0.0.1 DB_PASSWORD=<YOUR_PASSWORD> bash src/restore.sh <THE_FOLDER_WITH_EXTRACTED_TAR>
+DB_USER=<YOUR_USER> DB_PORT=3306 DB_HOST=127.0.0.1 DB_PASSWORD=<YOUR_PASSWORD> bash src/restore.sh <THE_FOLDER_WITH_EXTRACTED_TAR>
 ```
 ## Decompressing archives
 
