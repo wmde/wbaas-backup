@@ -1,7 +1,7 @@
 
 FROM ubuntu:bionic
 
-ENV GCSFUSE_REPO gcsfuse-stretch
+ENV GCSFUSE_REPO gcsfuse-bionic
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN useradd -u 1234 notroot && \
