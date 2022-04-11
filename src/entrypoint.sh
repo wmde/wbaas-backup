@@ -3,9 +3,10 @@ set -e
 
 ./backup.sh
 
-## Mount GCS bucket and move artifacts
+## GCS bucket is mounted by chart
+# We can just move the artifacts
 if [ "$DO_UPLOAD" -eq "1" ]; then
-    ./gcs/upload.sh
+    mv /backups/* /mnt/backup-bucket/
 else
     echo "Skip uploading..."
 fi
