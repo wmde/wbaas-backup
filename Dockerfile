@@ -12,6 +12,7 @@ RUN useradd -u 1234 notroot && \
     curl=7.58.0-2ubuntu3.16 \
     gnupg=2.2.4-1ubuntu1.4 \
     mydumper=0.9.1-5 \
+    mariadb-client=1:10.1.48-0ubuntu0.18.04.1 \
   && echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" \
     | tee /etc/apt/sources.list.d/gcsfuse.list \
   && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
@@ -30,6 +31,10 @@ ENV DB_PORT=3306 \
     DO_UPLOAD="1" \
     GCS_BUCKET_NAME="" \
     BACKUP_KEY="" \
-    MYDUMPER_VERBOSE_LEVEL="1"
+    MYDUMPER_VERBOSE_LEVEL="1" \
+    EXPECTED_FILES="" \
+    REPLICATION_THRESHOLD=60 \
+    SECONDARY_HOST=sql-mariadb-secondary.default.svc.cluster.local \
+    DO_CHECK_SECONDARY="1"
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]

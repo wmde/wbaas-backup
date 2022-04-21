@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+if [ "$DO_CHECK_SECONDARY" -eq "1" ]; then
+    ./check_secondary_status.sh
+else
+    echo "Skip checking secondary..."
+fi
+
 ./backup.sh
 
 ## GCS bucket is mounted by chart
