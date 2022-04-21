@@ -1,5 +1,22 @@
 # wbaas-backup
 
+### Environment variables
+
+Variable                             | Default                                                             | Description
+-------------------------------------|---------------------------------------------------------------------|------------
+`DB_PORT`                            | 3306                                                                | Port of mariadb
+`DB_HOST`                            | "localhost"                                                         | Host of mariadb
+`DB_PASSWORD`                        | NONE                                                                | Password of mariadb DB_USER
+`DB_USER`                            | NONE                                                                | User for mariadb
+`DO_UPLOAD`                          | 1                                                                   | Flag for uploading to GCS_BUCKET_NAME or not 
+`GCS_BUCKET_NAME`                    | NONE                                                                | Bucket name that uploading happens to
+`BACKUP_KEY`                         | NONE                                                                | Key used for openssl encryption and decryption
+`MYDUMPER_VERBOSE_LEVEL`             | 1                                                                   | mydumper verbosity level ( 0 = silent, 1 = errors, 2 = warnings, 3 = info)
+`EXPECTED_FILES`                     | see [validate_expected_files.sh](src/validate_expected_files.sh)    | Files to expect after backup is taken.
+`REPLICATION_THRESHOLD`              | 60                                                                  | Replica lag threshold for which the backups should not be taken when exceeded.
+`SECONDARY_HOST`                     | sql-mariadb-secondary.default.svc.cluster.local                     | Secondary host to check if replica is lagged
+`DO_CHECK_SECONDARY`                 | 1                                                                   | Flag for checking if replica is lagged or not
+
 ## Running scripts locally
 
 To run these scripts locally the easiest way is probably to manually trigger the backup CronJob in the ui.
