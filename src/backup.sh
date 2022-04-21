@@ -14,8 +14,8 @@ mydumper --user="$DB_USER" \
          --trx-consistency-only \
          --verbose="$MYDUMPER_VERBOSE_LEVEL"
 
-cat "$BACKUP_DIR"/metadata
+bash "$ROOT/validate_expected_files.sh" "$BACKUP_DIR"
 
 cd "$BACKUP_DIR"
-bash "$ROOT"/compress_folder.sh "$BACKUP_ARCHIVE"
+bash "$ROOT/compress_folder.sh" "$BACKUP_ARCHIVE"
 cd -
