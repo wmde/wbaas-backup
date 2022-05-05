@@ -9,7 +9,7 @@ RUN useradd -u 1234 notroot && \
     chown notroot /backups /mnt/backup-bucket && \
     apt-get update && apt-get install --yes --no-install-recommends \
     ca-certificates=20210119~18.04.2 \
-    curl=7.58.0-2ubuntu3.16 \
+    curl=7.58.0-2ubuntu3.17 \
     gnupg=2.2.4-1ubuntu1.4 \
     mydumper=0.9.1-5 \
     mariadb-client=1:10.1.48-0ubuntu0.18.04.1 \
