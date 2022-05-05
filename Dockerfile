@@ -5,8 +5,11 @@ ENV GCSFUSE_REPO gcsfuse-bionic
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN useradd -u 1234 notroot && \
-    mkdir /backups && mkdir -p /mnt/backup-bucket && \
-    chown notroot /backups /mnt/backup-bucket && \
+    mkdir -p /backups/tmp && \
+    mkdir -p /backups/output && \
+    mkdir -p /mnt/backup-bucket && \
+    chown notroot /backups -R && \
+    chown notroot /mnt/backup-bucket && \
     apt-get update && apt-get install --yes --no-install-recommends \
     ca-certificates=20210119~18.04.2 \
     curl=7.58.0-2ubuntu3.17 \
