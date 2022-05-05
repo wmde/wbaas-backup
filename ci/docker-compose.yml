@@ -61,7 +61,7 @@ services:
       - EXPECTED_FILES=metadata,my_wiki.page.sql,my_wiki.page-schema.sql
       - DO_CHECK_SECONDARY=0
     volumes:
-      - ./backup-outputs:/backups:rw
+      - ./backup-outputs:/backups/output:rw
 
 volumes:
   mediawiki-mysql-data:
