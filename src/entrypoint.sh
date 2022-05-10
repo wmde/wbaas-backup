@@ -16,3 +16,5 @@ if [ "$DO_UPLOAD" -eq "1" ]; then
 else
     echo "Skip uploading..."
 fi
+
+./cleanup.sh

@@ -56,12 +56,12 @@ services:
       - DB_PASSWORD=${DB_PASS}
       - DB_HOST=mysql.svc
       - DB_PORT=3306
-      - DO_UPLOAD=0
+      - DO_UPLOAD=1
       - BACKUP_KEY=abc123
       - EXPECTED_FILES=metadata,my_wiki.page.sql,my_wiki.page-schema.sql
       - DO_CHECK_SECONDARY=0
     volumes:
-      - ./backup-outputs:/backups/output:rw
+      - ./backup-outputs:/mnt/backup-bucket/:rw
 
 volumes:
   mediawiki-mysql-data:
