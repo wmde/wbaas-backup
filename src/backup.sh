@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+mkdir -p /backups/tmp
+mkdir -p /backups/output
+
 ROOT=$PWD
 TIMESTAMP=$(date '+%Y-%m-%d_%H%M%S')
 BACKUP_DIR=/backups/tmp/backup-"$TIMESTAMP"
