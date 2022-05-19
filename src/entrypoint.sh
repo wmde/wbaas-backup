@@ -17,4 +17,7 @@ else
     echo "Skip uploading..."
 fi
 
+TIMESTAMP=$(date '+%Y-%m-%d_%H%M%S')
+echo "Finished dump at: $TIMESTAMP"
+
 ./cleanup.sh
