@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -o pipefail
 
 SECONDS_BEHIND=$(mysql -e "show slave status\G" --host="$SECONDARY_HOST" --port="$DB_PORT" -u"$DB_USER" -p"$DB_PASSWORD" | grep "Seconds_Behind_Master" | awk '{print $2}')
 SECONDS_BEHIND=${SECONDS_BEHIND%.*}
