@@ -19,6 +19,4 @@ mydumper --user="$DB_USER" \
 
 bash "$ROOT/validate_expected_files.sh" "$BACKUP_DIR"
 
-cd "$BACKUP_DIR"
-bash "$ROOT/compress_folder.sh" "$BACKUP_ARCHIVE"
-cd -
+bash "$ROOT/compress_folder.sh" "$BACKUP_DIR" "$BACKUP_ARCHIVE"
