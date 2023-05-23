@@ -8,4 +8,5 @@ myloader --user="$DB_USER" \
          --host="$DB_HOST" \
          --password="$DB_PASSWORD" \
          --directory="$BACKUP_RESTORE_DIR" \
+         --overwrite-tables \
          --verbose="$MYDUMPER_VERBOSE_LEVEL"
