@@ -1,4 +1,3 @@
-
 FROM ubuntu:bionic
 
 ENV GCSFUSE_REPO gcsfuse-bionic
@@ -11,8 +10,8 @@ RUN useradd -u 1234 notroot && \
     chown notroot /backups -R && \
     chown notroot /mnt/backup-bucket && \
     apt-get update && apt-get install --yes --no-install-recommends \
-    ca-certificates=20211016~18.04.1 \
-    curl=7.58.0-2ubuntu3.19 \
+    ca-certificates=20230311ubuntu0.18.04.1 \
+    curl=7.58.0-2ubuntu3.24 \
     gnupg=2.2.4-1ubuntu1.6 \
     mydumper=0.9.1-5 \
     mariadb-client=1:10.1.48-0ubuntu0.18.04.1 \
@@ -21,7 +20,7 @@ RUN useradd -u 1234 notroot && \
   && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
   && apt-get update \
   && apt-get install --yes gcsfuse=0.40.0 --no-install-recommends \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 USER notroot
 WORKDIR /app
