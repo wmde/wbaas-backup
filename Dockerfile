@@ -13,9 +13,9 @@ RUN useradd -u 1234 -m notroot && \
     mariadb-client=1:10.1.48-0ubuntu0.18.04.1 && \
     curl https://dl.min.io/client/mc/release/linux-amd64/mc \
       --create-dirs \
-      -o $HOME/minio-binaries/mc && \
-    chmod +x $HOME/minio-binaries/mc && \
-    mv $HOME/minio-binaries/mc /usr/bin/mc && \
+      -o "$HOME/minio-binaries/mc" && \
+    chmod +x "$HOME/minio-binaries/mc" && \
+    mv "$HOME/minio-binaries/mc" /usr/bin/mc && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 USER notroot
