@@ -9,7 +9,9 @@ Variable                             | Default                                  
 `DB_PASSWORD`                        | NONE                                                                | Password of mariadb DB_USER
 `DB_USER`                            | NONE                                                                | User for mariadb
 `DO_UPLOAD`                          | 1                                                                   | Flag for uploading to GCS_BUCKET_NAME or not 
-`GCS_BUCKET_NAME`                    | NONE                                                                | Bucket name that uploading happens to
+`STORAGE_BUCKET_NAME`                | NONE                                                                | Bucket name that uploading happens to
+`STORAGE_ENDPOINT`                   | storage.googleapis.com                                              | S3 compatible storage endpoint
+`STORAGE_SIGNATURE_VERSION`          | S3v2                                                                | S3 signature version to use
 `BACKUP_KEY`                         | NONE                                                                | Key used for openssl encryption and decryption
 `MYDUMPER_VERBOSE_LEVEL`             | 1                                                                   | mydumper verbosity level ( 0 = silent, 1 = errors, 2 = warnings, 3 = info)
 `EXPECTED_FILES`                     | see [validate_expected_files.sh](src/validate_expected_files.sh)    | Files to expect after backup is taken.

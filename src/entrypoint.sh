@@ -12,9 +12,9 @@ fi
 ## GCS bucket is mounted by chart
 # We can just move the artifacts
 if [ "$DO_UPLOAD" -eq "1" ]; then
-    mv /backups/output/* /mnt/backup-bucket/
+    ./copy.sh
 else
-    echo "Skip uploading..."
+    echo "Skipping upload as DO_UPLOAD is not set..."
 fi
 
 TIMESTAMP=$(date '+%Y-%m-%d_%H%M%S')
