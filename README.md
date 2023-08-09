@@ -11,6 +11,8 @@ Variable                             | Default                                  
 `DO_UPLOAD`                          | 1                                                                   | Flag for uploading to GCS_BUCKET_NAME or not 
 `STORAGE_BUCKET_NAME`                | NONE                                                                | Bucket name that uploading happens to
 `STORAGE_ENDPOINT`                   | storage.googleapis.com                                              | S3 compatible storage endpoint
+`STORAGE_ACCESS_KEY`                 | NONE                                                                | Storage Access Key
+`STORAGE_SECRET_KEY`                 | NONE                                                                | Storage Secret Key
 `STORAGE_SIGNATURE_VERSION`          | S3v2                                                                | S3 signature version to use
 `BACKUP_KEY`                         | NONE                                                                | Key used for openssl encryption and decryption
 `MYDUMPER_VERBOSE_LEVEL`             | 1                                                                   | mydumper verbosity level ( 0 = silent, 1 = errors, 2 = warnings, 3 = info)
