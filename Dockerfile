@@ -1,5 +1,10 @@
 FROM ubuntu:bionic
 
+ARG MC_VERSION=RELEASE.2023-08-08T17-23-59Z
+ARG TARGETOS
+ARG TARGETARCH
+ARG TARGETVARIANT
+
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN useradd -u 1234 -m notroot && \
     mkdir -p /backups/tmp && \
@@ -11,7 +16,7 @@ RUN useradd -u 1234 -m notroot && \
     gnupg=2.2.4-1ubuntu1.6 \
     mydumper=0.9.1-5 \
     mariadb-client=1:10.1.48-0ubuntu0.18.04.1 && \
-    curl https://dl.min.io/client/mc/release/linux-amd64/mc \
+    curl -sSL "https://dl.min.io/client/mc/release/$TARGETOS-$TARGETARCH$TARGETVARIANT/archive/mc.$MC_VERSION" \
       --create-dirs \
       -o "$HOME/minio-binaries/mc" && \
     chmod +x "$HOME/minio-binaries/mc" && \
