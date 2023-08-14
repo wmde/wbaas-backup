@@ -39,7 +39,7 @@ jobs:
           docker-compose up wbaas_backup
 
           # decompress and list some files
-          FILE=$(ls backup-outputs/backup/output/mydumper-backup-*)
+          FILE=$(ls backup-outputs/backup/mydumper-backup-*)
           cd ..
           BACKUP_KEY=abc123 ./src/decompress_archive.sh ci/$FILE /tmp/output
           ls /tmp/output/
