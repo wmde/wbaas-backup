@@ -19,7 +19,7 @@ jobs:
         name: Start test container
         run: |
           cd ci
-          docker-compose up -d wikibase mysql
+          docker-compose up -d wikibase mysql storage
           cd -
 
       - name: Wait for server to accept connections
@@ -34,16 +34,12 @@ jobs:
       -
         name: Run backup and show some files
         run: |
-          #create writable dir for non-root
-          mkdir -p ci/backup-outputs
-          chmod 777 ci/backup-outputs
-
           # run a backup
           cd ci
           docker-compose up wbaas_backup
 
           # decompress and list some files
-          FILE=$(ls backup-outputs/mydumper-backup-*)
+          FILE=$(ls backup-outputs/backup/mydumper-backup-*)
           cd ..
           BACKUP_KEY=abc123 ./src/decompress_archive.sh ci/$FILE /tmp/output
           ls /tmp/output/
