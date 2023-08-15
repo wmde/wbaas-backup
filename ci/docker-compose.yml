@@ -59,7 +59,8 @@ services:
       - DO_UPLOAD=1
       - BACKUP_KEY=abc123
       - EXPECTED_FILES=metadata,my_wiki.page.sql,my_wiki.page-schema.sql
-      - STORAGE_ENDPOINT=http://storage:9000
+      - STORAGE_ENDPOINT=http://storage
+      - STORAGE_PORT=9000
       - STORAGE_ACCESS_KEY=test
       - STORAGE_SECRET_KEY=secret-key-value
       - STORAGE_BUCKET_NAME=backup

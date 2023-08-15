@@ -1,6 +1,6 @@
 FROM ubuntu:bionic
 
-ARG MC_VERSION=RELEASE.2023-08-08T17-23-59Z
+ARG GCLOUD_VERSION=442.0.0
 ARG TARGETOS
 ARG TARGETARCH
 ARG TARGETVARIANT
@@ -15,17 +15,23 @@ RUN useradd -u 1234 -m notroot && \
     curl=7.58.0-2ubuntu3.24 \
     gnupg=2.2.4-1ubuntu1.6 \
     mydumper=0.9.1-5 \
+    gettext-base=0.19.8.1-6ubuntu0.3 \
     mariadb-client=1:10.1.48-0ubuntu0.18.04.1 && \
-    curl -sSL "https://dl.min.io/client/mc/release/$TARGETOS-$TARGETARCH$TARGETVARIANT/archive/mc.$MC_VERSION" \
-      --create-dirs \
-      -o "$HOME/minio-binaries/mc" && \
-    chmod +x "$HOME/minio-binaries/mc" && \
-    mv "$HOME/minio-binaries/mc" /usr/bin/mc && \
+    curl -sSL -O "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-$GCLOUD_VERSION-$TARGETOS-${TARGETARCH/amd64/x86_64}.tar.gz" && \
+    mkdir -p /usr/local/gcloud && \
+    tar -C /usr/local/gcloud -xvf "google-cloud-cli-$GCLOUD_VERSION-$TARGETOS-${TARGETARCH/amd64/x86_64}.tar.gz" && \
+    /usr/local/gcloud/google-cloud-sdk/install.sh && \
+    rm -rf "google-cloud-cli-$GCLOUD_VERSION-$TARGETOS--${TARGETARCH/amd64/x86_64}.tar.gz" && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
+
 USER notroot
+
+COPY --chown=notroot .boto.template /home/notroot/.boto.template
+
 WORKDIR /app
-COPY src/ /app
+COPY --chown=notroot src/ /app
 
 ENV DB_PORT="3306" \
     DB_HOST="localhost" \
