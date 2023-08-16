@@ -1,6 +1,6 @@
 FROM ubuntu:bionic
 
-ARG MC_VERSION=RELEASE.2023-08-08T17-23-59Z
+ARG AWS_CLI_VERSION=2.13.9
 ARG TARGETOS
 ARG TARGETARCH
 ARG TARGETVARIANT
@@ -15,23 +15,25 @@ RUN useradd -u 1234 -m notroot && \
     curl=7.58.0-2ubuntu3.24 \
     gnupg=2.2.4-1ubuntu1.6 \
     mydumper=0.9.1-5 \
-    mariadb-client=1:10.1.48-0ubuntu0.18.04.1 && \
-    curl -sSL "https://dl.min.io/client/mc/release/$TARGETOS-$TARGETARCH$TARGETVARIANT/archive/mc.$MC_VERSION" \
-      --create-dirs \
-      -o "$HOME/minio-binaries/mc" && \
-    chmod +x "$HOME/minio-binaries/mc" && \
-    mv "$HOME/minio-binaries/mc" /usr/bin/mc && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    mariadb-client=1:10.1.48-0ubuntu0.18.04.1 \
+    unzip=6.0-21ubuntu1.2 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    curl "https://awscli.amazonaws.com/awscli-exe-$TARGETOS-${TARGETARCH/amd64/x86_64}-$AWS_CLI_VERSION.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    ./aws/install && \
+    rm -rf ./aws awscliv2.zip
 
 USER notroot
+
 WORKDIR /app
-COPY src/ /app
+
+COPY --chown=notroot src/ /app
 
 ENV DB_PORT="3306" \
     DB_HOST="localhost" \
     DO_UPLOAD="1" \
     MYDUMPER_VERBOSE_LEVEL="1" \
-    STORAGE_ENDPOINT="storage.googleapis.com" \
+    STORAGE_ENDPOINT="https://storage.googleapis.com" \
     STORAGE_SIGNATURE_VERSION="S3v2" \
     REPLICATION_THRESHOLD="60" \
     SECONDARY_HOST="sql-mariadb-secondary.default.svc.cluster.local" \
