@@ -11,7 +11,6 @@ fi
 
 # We can just move the artifacts
 if [ "$DO_UPLOAD" -eq "1" ]; then
-    ./configure_gsutil.sh
     ./upload.sh
 else
     echo "Skipping upload as DO_UPLOAD is not set..."

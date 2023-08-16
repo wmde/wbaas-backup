@@ -1,6 +1,6 @@
 FROM ubuntu:bionic
 
-ARG GCLOUD_VERSION=442.0.0
+ARG AWS_CLI_VERSION=2.13.9
 ARG TARGETOS
 ARG TARGETARCH
 ARG TARGETVARIANT
@@ -15,22 +15,18 @@ RUN useradd -u 1234 -m notroot && \
     curl=7.58.0-2ubuntu3.24 \
     gnupg=2.2.4-1ubuntu1.6 \
     mydumper=0.9.1-5 \
-    gettext-base=0.19.8.1-6ubuntu0.3 \
-    mariadb-client=1:10.1.48-0ubuntu0.18.04.1 && \
-    curl -sSL -O "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-$GCLOUD_VERSION-$TARGETOS-${TARGETARCH/amd64/x86_64}.tar.gz" && \
-    mkdir -p /usr/local/gcloud && \
-    tar -C /usr/local/gcloud -xvf "google-cloud-cli-$GCLOUD_VERSION-$TARGETOS-${TARGETARCH/amd64/x86_64}.tar.gz" && \
-    /usr/local/gcloud/google-cloud-sdk/install.sh && \
-    rm -rf "google-cloud-cli-$GCLOUD_VERSION-$TARGETOS--${TARGETARCH/amd64/x86_64}.tar.gz" && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
+    mariadb-client=1:10.1.48-0ubuntu0.18.04.1 \
+    unzip=6.0-21ubuntu1.2 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    curl "https://awscli.amazonaws.com/awscli-exe-$TARGETOS-${TARGETARCH/amd64/x86_64}-$AWS_CLI_VERSION.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    ./aws/install && \
+    rm -rf ./aws awscliv2.zip
 
 USER notroot
 
-COPY --chown=notroot .boto.template /home/notroot/.boto.template
-
 WORKDIR /app
+
 COPY --chown=notroot src/ /app
 
 ENV DB_PORT="3306" \
