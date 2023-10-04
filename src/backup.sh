@@ -9,6 +9,8 @@ TIMESTAMP=$(date '+%Y-%m-%d_%H%M%S')
 BACKUP_DIR=/backups/tmp/backup-"$TIMESTAMP"
 BACKUP_ARCHIVE=/backups/output/mydumper-backup.tar.gz
 
+df -h
+
 mydumper --user="$DB_USER" \
          --port="$DB_PORT" \
          --host="$DB_HOST" \
@@ -20,3 +22,5 @@ mydumper --user="$DB_USER" \
 bash "$ROOT/validate_expected_files.sh" "$BACKUP_DIR"
 
 bash "$ROOT/compress_folder.sh" "$BACKUP_DIR" "$BACKUP_ARCHIVE"
+
+df -h
