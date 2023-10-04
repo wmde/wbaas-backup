@@ -7,7 +7,7 @@ mkdir -p /backups/output
 ROOT=$PWD
 TIMESTAMP=$(date '+%Y-%m-%d_%H%M%S')
 BACKUP_DIR=/backups/tmp/backup-"$TIMESTAMP"
-BACKUP_ARCHIVE=/backups/output/"mydumper-backup-$TIMESTAMP".tar.gz
+BACKUP_ARCHIVE=/backups/output/mydumper-backup.tar.gz
 
 mydumper --user="$DB_USER" \
          --port="$DB_PORT" \
