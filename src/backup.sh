@@ -20,3 +20,8 @@ mydumper --user="$DB_USER" \
 bash "$ROOT/validate_expected_files.sh" "$BACKUP_DIR"
 
 bash "$ROOT/compress_folder.sh" "$BACKUP_DIR" "$BACKUP_ARCHIVE"
+
+# Used disk space of the scratch volume mounted in /backups in %
+USED_PERCENTAGE=$(df | grep /backups | awk '{ print $5 }' | sed 's/%//')
+# This json output gets used in a GCP metric
+echo && echo '{"wbaas_backup_scratch_disk_log":"v1", "diskUsage": "'${USED_PERCENTAGE}'"}' && echo
